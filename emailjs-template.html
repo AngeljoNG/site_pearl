@@ -1,0 +1,41 @@
+<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; color: #2c3e50;">
+  <div style="text-align: center; margin-bottom: 30px;">
+    <h1 style="color: #4a6741; margin: 0; font-size: 24px;">Nouvelle demande de contact</h1>
+    <p style="color: #666; font-size: 16px; margin-top: 5px;">{{time}}</p>
+  </div>
+
+  <div style="background-color: #f8f9fa; border-left: 4px solid #4a6741; padding: 20px; margin-bottom: 20px;">
+    <h2 style="color: #4a6741; margin: 0 0 15px 0; font-size: 18px;">Type de demande</h2>
+    <p style="margin: 0; font-size: 16px;">{{request_type}}</p>
+  </div>
+
+  <div style="background-color: #f8f9fa; border-left: 4px solid #4a6741; padding: 20px; margin-bottom: 20px;">
+    <h2 style="color: #4a6741; margin: 0 0 15px 0; font-size: 18px;">Informations du contact</h2>
+    <table style="width: 100%; border-collapse: collapse;">
+      <tr>
+        <td style="padding: 8px 0; width: 100px;"><strong>Nom :</strong></td>
+        <td style="padding: 8px 0;">{{from_name}}</td>
+      </tr>
+      <tr>
+        <td style="padding: 8px 0;"><strong>Email :</strong></td>
+        <td style="padding: 8px 0;">{{from_email}}</td>
+      </tr>
+      <tr>
+        <td style="padding: 8px 0;"><strong>Téléphone :</strong></td>
+        <td style="padding: 8px 0;">{{phone}}</td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="background-color: #f8f9fa; border-left: 4px solid #4a6741; padding: 20px;">
+    <h2 style="color: #4a6741; margin: 0 0 15px 0; font-size: 18px;">Message</h2>
+    <p style="margin: 0; font-size: 16px; line-height: 1.6; white-space: pre-wrap;">{{message}}</p>
+  </div>
+
+  <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
+    <p style="color: #666; font-size: 14px; margin: 0;">
+      Ce message a été envoyé depuis le formulaire de contact de votre site web.<br>
+      Pour répondre, utilisez simplement la fonction "Répondre" de votre client email.
+    </p>
+  </div>
+</div>

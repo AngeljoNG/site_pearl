@@ -1,0 +1,26 @@
+{
+  "name": "Pearl Nguyen Duy - Psychologue",
+  "short_name": "Pearl Nguyen",
+  "description": "Psychologue clinicienne, thérapeute et graphothérapeute à Faimes",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4a6741",
+  "icons": [
+    {
+      "src": "/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

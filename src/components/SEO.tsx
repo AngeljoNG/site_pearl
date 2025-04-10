@@ -16,7 +16,7 @@ export function SEO({
     // Mots-clés principaux
     "psychologue",
     "thérapeute",
-    "graphothérapeute", 
+    "graphothérapeute",
     "psychologue clinicienne",
     "psychologue Faimes",
     "psychologue Liège",
@@ -26,7 +26,7 @@ export function SEO({
     // Localisation
     "Faimes",
     "Liège",
-    "Waremme", 
+    "Waremme",
     "Wallonie",
     "province de Liège",
     "Belgique",
@@ -41,7 +41,7 @@ export function SEO({
     "graphothérapie",
     "rééducation écriture",
     "thérapie brève",
-    "thérapie comportementale", 
+    "thérapie comportementale",
     "thérapie cognitive",
     "hypnose thérapeutique",
     "EMDR",
@@ -65,7 +65,7 @@ export function SEO({
     "consultation psychologique",
     "suivi thérapeutique",
     "accompagnement enfants",
-    "thérapie adolescents",
+    "thérapie adolescents", 
     "psychologue adultes",
     "bilan graphomoteur",
     "rééducation graphomotrice",
@@ -75,7 +75,7 @@ export function SEO({
 
     // Collaborations
     "DysMoi",
-    "REALISM", 
+    "REALISM",
     "réseau psychologues",
     "psychologue première ligne",
     "PPL",
@@ -83,16 +83,13 @@ export function SEO({
     "neurodiversité"
   ],
   image = "/pearl-profile.jpg",
-  url = "https://pearlnguyenduy.be"
+  url = "http://pearlnguyenduy.be"
 }: SEOProps) {
   const siteTitle = "Pearl Nguyen Duy";
   const fullTitle = title === siteTitle ? title : `${title} | ${siteTitle}`;
 
   return (
     <Helmet>
-      {/* Google Search Console Verification */}
-      <meta name="google-site-verification" content="v46zz3bDohbW2Nvzox6EPgtcAt0mF0cJufQn0QL_VGk" />
-
       {/* Balises meta de base */}
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
@@ -127,6 +124,48 @@ export function SEO({
       <meta name="geo.placename" content="Faimes" />
       <meta name="geo.position" content="50.6896726;5.2558973" />
       <meta name="ICBM" content="50.6896726, 5.2558973" />
+
+      {/* Schema.org data */}
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ProfessionalService",
+          "@id": url,
+          "name": siteTitle,
+          "image": image,
+          "description": description,
+          "url": url,
+          "telephone": "+32495863810",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Rue de les Waleffes 27",
+            "addressLocality": "Faimes",
+            "postalCode": "4317",
+            "addressCountry": "BE"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "50.6896726",
+            "longitude": "5.2558973"
+          },
+          "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday"
+            ],
+            "opens": "09:00",
+            "closes": "18:00"
+          },
+          "priceRange": "$$",
+          "sameAs": [
+            "https://www.facebook.com/profile.php?id=100064609303954"
+          ]
+        })}
+      </script>
 
       {/* Liens canoniques et alternates */}
       <link rel="canonical" href={url} />

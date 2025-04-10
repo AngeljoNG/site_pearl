@@ -1,4 +1,20 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://pearl-nguyen.eu/sitemap.xml
+# Prevent duplicate content issues
+Disallow: /admin/
+Disallow: /reset-password
+
+# Allow images to be crawled
+Allow: /images/
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.gif$
+Allow: /*.png$
+Allow: /*.webp$
+
+# Prevent crawling of search results
+Disallow: /*?*
+
+# Sitemap location
+Sitemap: https://pearlnguyenduy.be/sitemap.xml

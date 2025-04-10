@@ -1,58 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://pearl-nguyen.eu/</loc>
+    <loc>https://pearlnguyenduy.be/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://pearl-nguyen.eu/psychologie</loc>
+    <loc>https://pearlnguyenduy.be/psychologie</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://pearl-nguyen.eu/graphotherapie</loc>
+    <loc>https://pearlnguyenduy.be/graphotherapie</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://pearl-nguyen.eu/collaboration</loc>
+    <loc>https://pearlnguyenduy.be/collaboration</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pearl-nguyen.eu/blog</loc>
-    <changefreq>weekly</changefreq>
+    <loc>https://pearlnguyenduy.be/blog</loc>
+    <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pearl-nguyen.eu/contact</loc>
+    <loc>https://pearlnguyenduy.be/contact</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pearl-nguyen.eu/psychologie/tcc</loc>
+    <loc>https://pearlnguyenduy.be/psychologie/tcc</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pearl-nguyen.eu/psychologie/ritmo</loc>
+    <loc>https://pearlnguyenduy.be/psychologie/ritmo</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pearl-nguyen.eu/psychologie/hypnose</loc>
+    <loc>https://pearlnguyenduy.be/psychologie/hypnose</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pearl-nguyen.eu/psychologie/quelle-approche</loc>
+    <loc>https://pearlnguyenduy.be/psychologie/quelle-approche</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pearl-nguyen.eu/graphotherapie/exercices</loc>
+    <loc>https://pearlnguyenduy.be/psychologie/domaines-intervention</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pearlnguyenduy.be/graphotherapie/exercices</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pearlnguyenduy.be/mentions-legales</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
   </url>
 </urlset>

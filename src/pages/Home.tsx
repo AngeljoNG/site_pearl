@@ -345,7 +345,7 @@ export function Home() {
                       </div>
                     </div>
 
-                    <div className="aspect-video w-full rounded-lg overflow-hidden bg-nature-50">
+                    <div className="aspect-[4/3] w-full rounded-lg overflow-hidden bg-nature-50">
                       <video
                         ref={videoRef}
                         className="w-full h-full object-cover"

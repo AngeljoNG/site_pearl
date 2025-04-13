@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, LogIn } from 'lucide-react';
+import { Menu, LogIn, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { supabase } from '../lib/supabaseClient';
 
 export function Header() {
   const location = useLocation();
   const [session, setSession] = useState<any>(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const isActive = (path: string) => location.pathname === path;
 
   useEffect(() => {
@@ -21,11 +22,26 @@ export function Header() {
     return () => subscription.unsubscribe();
   }, []);
 
+  // Close menu when route changes
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [location]);
+
+  const menuItems = [
+    { path: '/', label: 'Accueil' },
+    { path: '/psychologie', label: 'Psychologie' },
+    { path: '/graphotherapie', label: 'Graphothérapie' },
+    { path: '/collaboration', label: 'Collaboration' },
+    { path: '/blog', label: 'Blog' },
+    { path: '/contact', label: 'Contact' },
+    ...(session ? [{ path: '/admin/blog', label: 'Admin', icon: LogIn }] : [])
+  ];
+
   return (
-    <header className="bg-nature-200 shadow-md">
+    <header className="bg-nature-200 shadow-md relative z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="flex flex-col items-center text-center relative">
-          <div className="absolute right-0 top-1/2 -translate-y-1/2 h-32 w-32 opacity-5">
+          <div className="absolute right-0 top-0 h-32 w-32 opacity-10">
             <img
               src="/Bambou_FondTrans.jpg"
               alt=""
@@ -35,7 +51,7 @@ export function Header() {
           <motion.h1 
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-3xl font-serif text-nature-500"
+            className="text-2xl md:text-3xl font-serif text-nature-500"
           >
             Pearl Nguyen Duy
           </motion.h1>
@@ -43,7 +59,7 @@ export function Header() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className="mt-2 text-lg text-nature-500"
+            className="mt-2 text-base md:text-lg text-nature-500"
           >
             Psychologue – Thérapeute – Graphothérapeute
           </motion.p>
@@ -51,22 +67,96 @@ export function Header() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
-            className="mt-1 text-nature-500 flex items-center"
+            className="mt-1 text-sm md:text-base text-nature-500 flex items-center"
           >
             <Menu className="w-4 h-4 mr-1" /> Faimes, Liège
           </motion.p>
         </div>
-        <nav className="mt-6">
+
+        {/* Mobile Menu Button */}
+        <div className="md:hidden flex justify-center mt-4">
+          <motion.button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="relative p-3 rounded-full bg-nature-300/80 backdrop-blur-sm text-white hover:bg-nature-400 transition-all duration-300 shadow-lg"
+            whileTap={{ scale: 0.95 }}
+            aria-label="Menu"
+          >
+            <AnimatePresence mode="wait">
+              {isMenuOpen ? (
+                <motion.div
+                  key="close"
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <X className="w-6 h-6" />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="menu"
+                  initial={{ rotate: 90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: -90, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Menu className="w-6 h-6" />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.button>
+        </div>
+
+        {/* Mobile Navigation */}
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ 
+                type: "spring",
+                stiffness: 300,
+                damping: 30,
+                opacity: { duration: 0.2 }
+              }}
+              className="md:hidden mt-4 bg-white/90 backdrop-blur-md shadow-lg rounded-2xl border border-nature-100 overflow-hidden"
+            >
+              <nav className="py-2">
+                <ul className="space-y-1">
+                  {menuItems.map((item, index) => (
+                    <motion.li
+                      key={item.path}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                    >
+                      <Link 
+                        to={item.path}
+                        className={`block px-6 py-3 ${
+                          isActive(item.path) 
+                            ? 'bg-nature-50 text-nature-700' 
+                            : 'text-nature-500 hover:bg-nature-50 active:bg-nature-100'
+                        } transition-colors`}
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        <span className="flex items-center">
+                          {item.icon && <item.icon className="w-4 h-4 mr-2" />}
+                          {item.label}
+                        </span>
+                      </Link>
+                    </motion.li>
+                  ))}
+                </ul>
+              </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Desktop Navigation */}
+        <nav className="hidden md:block mt-6">
           <ul className="flex justify-center space-x-8">
-            {[
-              { path: '/', label: 'Accueil' },
-              { path: '/psychologie', label: 'Psychologie' },
-              { path: '/graphotherapie', label: 'Graphothérapie' },
-              { path: '/collaboration', label: 'Collaboration' },
-              { path: '/blog', label: 'Blog' },
-              { path: '/contact', label: 'Contact' },
-              ...(session ? [{ path: '/admin/blog', label: 'Admin', icon: LogIn }] : [])
-            ].map((item) => (
+            {menuItems.map((item) => (
               <li key={item.path}>
                 <Link 
                   to={item.path}

@@ -1,4 +1,4 @@
-import { createClient } from 'npm:@supabase/supabase-js';
+import { createClient } from 'npm:@supabase/supabase-js@2.39.7';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -35,9 +35,6 @@ Deno.serve(async (req) => {
   }
 
   try {
-    // Get Resend API key
-    const resendKey = 're_78Wt7bPi_EbfVqsKTeNVSsXe3rQoDXfV5';
-
     let payload;
     try {
       const text = await req.text();
@@ -57,43 +54,38 @@ Deno.serve(async (req) => {
       request_type: contact.request_type
     });
 
-    const emailBody = `
-Nouvelle demande de contact :
-
-Type de demande : ${requestTypes[contact.request_type as keyof typeof requestTypes] || contact.request_type}
-Nom : ${contact.name}
-Email : ${contact.email}
-Téléphone : ${contact.phone || 'Non spécifié'}
-
-Message :
-${contact.message}
-
-Date : ${new Date(contact.created_at || new Date()).toLocaleString('fr-BE')}
-    `.trim();
-
-    console.log('Preparing to send email via Resend API');
-
-    const emailResponse = await fetch('https://api.resend.com/emails', {
+    // Send email via EmailJS API
+    const emailResponse = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${resendKey}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        from: 'Pearl Nguyen <contact@pearl-nguyen.eu>',
-        to: ['pearl@nguyen.eu'],
-        subject: `Nouvelle demande de contact - ${requestTypes[contact.request_type as keyof typeof requestTypes] || 'Contact'}`,
-        text: emailBody,
-        reply_to: contact.email
+        service_id: 'service_ivdv56i',
+        template_id: 'template_foq7z3j',
+        user_id: 'piPuPKu8t2EeQzSoV',
+        template_params: {
+          from_name: contact.name,
+          from_email: contact.email,
+          phone: contact.phone,
+          request_type: requestTypes[contact.request_type as keyof typeof requestTypes] || contact.request_type,
+          message: contact.message,
+          reply_to: contact.email,
+          time: new Date().toLocaleString('fr-BE', {
+            dateStyle: 'long',
+            timeStyle: 'short'
+          })
+        }
       })
     });
 
-    const emailResult = await emailResponse.json();
-    console.log('Resend API response:', emailResult);
-
     if (!emailResponse.ok) {
-      throw new Error(`Failed to send email: ${JSON.stringify(emailResult)}`);
+      const errorData = await emailResponse.json();
+      throw new Error(`Failed to send email: ${JSON.stringify(errorData)}`);
     }
+
+    const emailResult = await emailResponse.json();
+    console.log('EmailJS response:', emailResult);
 
     return new Response(
       JSON.stringify({ 

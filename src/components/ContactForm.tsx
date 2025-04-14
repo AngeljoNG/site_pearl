@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Send, Loader } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { sendContactEmail } from '../lib/emailjs';
+import { supabase } from '../lib/supabaseClient';
 
 interface ContactFormData {
   name: string;
@@ -41,6 +42,7 @@ export function ContactForm() {
     setError(null);
 
     try {
+      // Send email via EmailJS
       await sendContactEmail({
         name: formData.name,
         email: formData.email,
@@ -48,6 +50,23 @@ export function ContactForm() {
         request_type: requestTypes[formData.request_type],
         message: formData.message
       });
+
+      // Store in Supabase
+      const { error: dbError } = await supabase
+        .from('contact_requests')
+        .insert([{
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          request_type: formData.request_type,
+          message: formData.message,
+          status: 'sent'
+        }]);
+
+      if (dbError) {
+        console.error('Error storing contact request:', dbError);
+        // Don't show error to user since email was sent successfully
+      }
 
       setSuccess(true);
       setFormData({

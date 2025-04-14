@@ -2,7 +2,7 @@ import emailjs from '@emailjs/browser';
 import { supabase } from './supabaseClient';
 
 // Initialize EmailJS
-emailjs.init("Wg_Yn0kHq9J9B_RbH");
+emailjs.init("piPuPKu8t2EeQzSoV");
 
 export const sendContactEmail = async (data: {
   name: string;

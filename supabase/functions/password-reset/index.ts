@@ -15,9 +15,8 @@ interface RequestPayload {
 // Get environment variables
 const supabaseUrl = Deno.env.get('SUPABASE_URL');
 const serviceRoleKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
-const resendKey = Deno.env.get('RESEND_API_KEY');
 
-if (!supabaseUrl || !serviceRoleKey || !resendKey) {
+if (!supabaseUrl || !serviceRoleKey) {
   throw new Error('Required environment variables are not set');
 }
 
@@ -82,32 +81,31 @@ Deno.serve(async (req) => {
     const origin = req.headers.get('origin') || 'https://pearl-nguyen.eu';
     const resetUrl = `${origin}/reset-password?token=${token}&email=${encodeURIComponent(email)}`;
 
-    // Send email via Resend
-    const emailResponse = await fetch('https://api.resend.com/emails', {
+    // Send email via EmailJS
+    const emailResponse = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${resendKey}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        from: 'Joelle Nguyen <joelle@nguyen.eu>',
-        to: [email],
-        subject: 'Réinitialisation de votre mot de passe',
-        html: `
-          <p>Bonjour,</p>
-          <p>Vous avez demandé la réinitialisation de votre mot de passe.</p>
-          <p>Cliquez sur le lien ci-dessous pour choisir un nouveau mot de passe :</p>
-          <p><a href="${resetUrl}">Réinitialiser mon mot de passe</a></p>
-          <p>Ce lien est valable pendant 1 heure.</p>
-          <p>Si vous n'avez pas demandé cette réinitialisation, ignorez simplement cet email.</p>
-        `
+        service_id: 'service_ivdv56i',
+        template_id: 'template_t5ishje',
+        user_id: 'piPuPKu8t2EeQzSoV',
+        template_params: {
+          to_email: email,
+          reset_url: resetUrl,
+          time: new Date().toLocaleString('fr-BE', {
+            dateStyle: 'long',
+            timeStyle: 'short'
+          })
+        }
       })
     });
 
     if (!emailResponse.ok) {
-      const errorData = await emailResponse.json().catch(() => ({ message: 'Unknown error' }));
-      console.error('Resend API error:', errorData);
-      throw new Error(`Failed to send reset email: ${errorData.message}`);
+      const errorData = await emailResponse.json();
+      console.error('EmailJS error:', errorData);
+      throw new Error(`Failed to send reset email: ${JSON.stringify(errorData)}`);
     }
 
     return new Response(

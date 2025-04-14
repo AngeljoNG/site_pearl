@@ -11,8 +11,11 @@ export default defineConfig({
       output: {
         manualChunks: {
           'vendor': ['react', 'react-dom', 'react-router-dom'],
+          'editor': ['@tiptap/core', '@tiptap/react', '@tiptap/starter-kit'],
+          'ui': ['framer-motion', 'lucide-react'],
         },
       },
     },
+    chunkSizeWarningLimit: 1000,
   },
 });

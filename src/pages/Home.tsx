@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Mail, Phone, Leaf, Droplets, Heart, PenTool, Link as LinkIcon, ArrowRight, MapPin } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
@@ -356,7 +356,6 @@ export function Home() {
                         poster="/Zen_pierres.jpg"
                       >
                         <source src="/videos/zen_accueil.webm" type="video/webm" />
-                        <source src="/videos/zen_accueil.mp4" type="video/mp4" />
                         Votre navigateur ne prend pas en charge la lecture de vidéos.
                       </video>
                     </div>

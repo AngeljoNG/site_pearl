@@ -38,14 +38,23 @@ export function Header() {
   ];
 
   return (
-    <header className="bg-nature-200 shadow-md relative z-50">
+    <header className="sticky top-0 bg-nature-200/95 backdrop-blur-sm shadow-md relative z-50 transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="flex flex-col items-center text-center relative">
-          <div className="absolute right-0 top-0 h-32 w-32 opacity-10">
+          <div 
+            className="absolute right-0 top-0 h-full w-96 opacity-10 transform scale-150 origin-right"
+            style={{
+              maskImage: 'linear-gradient(to left, black, transparent)',
+              WebkitMaskImage: 'linear-gradient(to left, black, transparent)'
+            }}
+          >
             <img
               src="/Bambou_FondTrans.jpg"
               alt=""
-              className="h-full object-cover"
+              className="h-full w-full object-cover transform -scale-x-100"
+              style={{
+                filter: 'contrast(150%) brightness(150%)'
+              }}
             />
           </div>
           <motion.h1 
